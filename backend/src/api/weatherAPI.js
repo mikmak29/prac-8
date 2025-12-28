@@ -1,0 +1,32 @@
+import dotenv from "dotenv";
+import asyncErrorHandler from "express-async-handler";
+
+dotenv.config();
+
+const weatherAPI = asyncErrorHandler(async (place) => {
+	const API_KEY = process.env.PRIVATE_WEATHER_TOKEN_KEY;
+	const response = await fetch(`http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${place}&aqi=no`);
+	const data = await response.json();
+
+	const {
+		location: { name, region, country, localtime },
+		current: {
+			temp_f,
+			condition: { text },
+			humidity,
+			cloud,
+		},
+	} = data;
+
+	return {
+		location: { name, region, country, localtime },
+		current: {
+			temp_f,
+			condition: { text },
+			humidity,
+			cloud,
+		},
+	};
+});
+
+export default weatherAPI;
