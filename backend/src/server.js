@@ -8,7 +8,7 @@ dotenv.config();
 
 const port = process.env.PORT || 8100;
 
-const serverStarter = asyncErrorHandler(async (req, res) => {
+const serverStarter = asyncErrorHandler(async () => {
 	await connectDB();
 	app.listen(port, () => {
 		console.log(`Server is listening at port ${port}`);

@@ -9,7 +9,7 @@ const weatherAPI = asyncErrorHandler(async (place) => {
 	const data = await response.json();
 
 	const {
-		location: { name, region, country, localtime },
+		location: { country, region, localtime },
 		current: {
 			temp_f,
 			condition: { text },
@@ -19,7 +19,7 @@ const weatherAPI = asyncErrorHandler(async (place) => {
 	} = data;
 
 	return {
-		location: { name, region, country, localtime },
+		location: { country, region, localtime },
 		current: {
 			temp_f,
 			condition: { text },
