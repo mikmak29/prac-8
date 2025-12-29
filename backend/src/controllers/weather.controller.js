@@ -1,6 +1,6 @@
 import asyncErrorHandler from "express-async-handler";
 import conditionalErrorHandler from "../helper/conditionalErrorHandler.js";
-import { validateObjectId } from "../helper/validateObjectId.js";
+import { validateObjectId } from "../validations/validateObjectId.js";
 
 import weatherAPI from "../api/weatherAPI.js";
 import * as weatherServices from "../services/weather.services.js";
