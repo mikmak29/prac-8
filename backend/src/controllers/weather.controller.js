@@ -6,19 +6,19 @@ import weatherAPI from "../api/weatherAPI.js";
 import * as weatherServices from "../services/weather.services.js";
 
 export const searchPlace = asyncErrorHandler(async (req, res) => {
-	const { place, storedData } = req.body;
+	const { country, storedData } = req.body;
 
-	if (!place || !storedData) {
+	if (!country || !storedData) {
 		conditionalErrorHandler("Fields are mandatory to fill.", 404);
 	}
 
-	const requestPlace = await weatherAPI(place);
+	const requestCountry = await weatherAPI(country);
 
 	if (storedData === "true") {
-		const weatherData = await weatherServices.searchLocationWeather(requestPlace);
+		const weatherData = await weatherServices.searchLocationWeather(requestCountry);
 		res.status(200).send({ Saved: weatherData });
 	} else {
-		res.status(200).send({ Not_save: requestPlace });
+		res.status(200).send({ Not_save: requestCountry });
 	}
 });
 

@@ -3,9 +3,9 @@ import asyncErrorHandler from "express-async-handler";
 
 dotenv.config();
 
-const weatherAPI = asyncErrorHandler(async (place) => {
+const weatherAPI = asyncErrorHandler(async (reqCountry) => {
 	const API_KEY = process.env.PRIVATE_WEATHER_TOKEN_KEY;
-	const response = await fetch(`http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${place}&aqi=no`);
+	const response = await fetch(`http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${reqCountry}&aqi=no`);
 	const data = await response.json();
 
 	const {

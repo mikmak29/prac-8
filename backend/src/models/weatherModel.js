@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const weatherSchema = new mongoose.Schema(
 	{
-		place: {
+		country: {
 			type: String,
 		},
 		location: {
@@ -24,7 +24,7 @@ const weatherSchema = new mongoose.Schema(
 				type: Number,
 			},
 			condition: {
-				type: {
+				text: {
 					type: String,
 				},
 			},

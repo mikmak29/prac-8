@@ -7,12 +7,12 @@ const weatherSchemaValidator = {
 	schema: {
 		body: {
 			yupSchema: Yup.object().shape({
-				place: Yup.string().required("requiredPlaceProperty").min(MIN).max(MAX),
+				country: Yup.string().required("requiredCountryProperty").min(MIN).max(MAX),
 			}),
 		},
 	},
 	errorMessages: {
-		requiredPlaceProperty: {
+		requiredCountryProperty: {
 			message: "Place is required",
 		},
 	},
