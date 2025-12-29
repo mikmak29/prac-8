@@ -1,6 +1,14 @@
 import asyncErrorHandler from "express-async-handler";
-import weatherModel from "../model/weatherModel.js";
+import Weather from "../models/weatherModel.js";
+
+export const searchLocationWeather = asyncErrorHandler(async (searchedData) => {
+	return Weather.create(searchedData);
+});
 
 export const fetchSearchedHistory = asyncErrorHandler(async () => {
-	return weatherModel.find();
+	return Weather.find();
+});
+
+export const searchExistingPlace = asyncErrorHandler(async (id) => {
+	return Weather.findById(id);
 });
