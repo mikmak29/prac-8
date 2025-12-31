@@ -55,15 +55,24 @@ export const userLogIn = asyncErrorHandler(async (req, res) => {
 				},
 			},
 			process.env.PRIVATE_USER_TOKEN_KEY,
-			{ expiresIn: "30s" }
+			{ expiresIn: "5m" }
 		);
-		res.status(200).send({ token: accessToken });
-	}
 
-	return conditionalErrorHandler("Unauthorized email or password", 401);
+		res.cookie("weather-cookie", accessToken, {
+			httpOnly: true, // JS cannot access (prevents XSS)
+			secure: true, // HTTPS only (set false for local dev)
+			sameSite: "strict", // CSRF protection
+			maxAge: 24 * 60 * 60 * 1000, // 1 day
+		});
+		res.status(200).send({ token: accessToken });
+	} else {
+		res.status(401).send("Unauthorized email or password");
+	}
 });
 
 export const userCurrent = asyncErrorHandler(async (req, res) => {
+	console.log("req hearders", req.headers.Authorization);
+	console.log("req hearders", req.headers.authorization);
 	const currentData = req.user;
 	res.status(200).send(currentData);
 });

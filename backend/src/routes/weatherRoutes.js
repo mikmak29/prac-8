@@ -2,12 +2,13 @@ import express from "express";
 import { expressYupMiddleware } from "express-yup-middleware";
 
 import * as weatherController from "../controllers/weather.controller.js";
-import weatherSchemaValidator from "../schema/weather.schema..js";
+import weatherSchemaValidator from "../schema/weather.schema.js";
+import { validateToken } from "../validations/validateToken.js";
 
 const route = express.Router();
 
 route.post("/", expressYupMiddleware({ schemaValidator: weatherSchemaValidator }), weatherController.searchPlace);
-route.get("/", weatherController.fetchSearchedHistory);
+route.get("/data", validateToken, weatherController.fetchSearchedHistory);
 route.get("/:id", weatherController.searchExistingPlace);
 
 export default route;
