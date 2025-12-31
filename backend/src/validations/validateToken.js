@@ -9,15 +9,11 @@ export const validateToken = asyncErrorHandler(async (req, res, next) => {
 	let token;
 	let authHeaders = req.headers.Authorization || req.headers.authorization;
 
-	if (!authHeaders || !authHeaders.startsWith("Bearer")) {
+	if (!authHeaders || !authHeaders.startsWith("Bearer") || !token) {
 		conditionalErrorHandler("Not Unauthorized. Please provide a token.", 401);
 	}
 
 	token = authHeaders.split(" ")[1];
-
-	if (!token) {
-		conditionalErrorHandler("Not Unauthorized. Please provide a token.", 401);
-	}
 
 	jwt.verify(token, process.env.PRIVATE_USER_TOKEN_KEY, (error, decoded) => {
 		if (error) {

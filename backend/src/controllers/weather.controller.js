@@ -23,7 +23,7 @@ export const searchPlace = asyncErrorHandler(async (req, res) => {
 });
 
 export const fetchSearchedHistory = asyncErrorHandler(async (req, res) => {
-	const weatherData = await weatherServices.fetchSearchedHistory();
+	const weatherData = req.user;
 	res.status(200).send(weatherData);
 });
 

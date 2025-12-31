@@ -1,6 +1,11 @@
 import { STATUS_CODE } from "../constant/STATUS_CODE.js";
 
 export const globalErrorHandler = (err, req, res, next) => {
+	// Prevent sending response if headers already sent
+	if (res.headersSent) {
+		return next(err);
+	}
+
 	const status = err.statusCode || err.status || 500;
 
 	const errorMap = {
@@ -16,5 +21,6 @@ export const globalErrorHandler = (err, req, res, next) => {
 	res.status(status).json({
 		status: error.statusCode,
 		message: error.title,
+		errorStack: err.stack,
 	});
 };
