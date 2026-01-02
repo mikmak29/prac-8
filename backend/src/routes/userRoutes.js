@@ -8,6 +8,6 @@ const route = express.Router();
 
 route.route("/register").post(expressYupMiddleware({ schemaValidator: userSchemaValidator }), userController.userRegister);
 route.route("/login").post(userController.userLogIn);
-route.route("/current").get(validateToken, userController.userCurrent);
+route.route("/current").get(userController.userCurrent);
 
 export default route;

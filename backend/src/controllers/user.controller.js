@@ -58,12 +58,6 @@ export const userLogIn = asyncErrorHandler(async (req, res) => {
 			{ expiresIn: "5m" }
 		);
 
-		res.cookie("weather-cookie", accessToken, {
-			httpOnly: true, // JS cannot access (prevents XSS)
-			secure: true, // HTTPS only (set false for local dev)
-			sameSite: "strict", // CSRF protection
-			maxAge: 24 * 60 * 60 * 1000, // 1 day
-		});
 		res.status(200).send({ token: accessToken });
 	} else {
 		res.status(401).send("Unauthorized email or password");
@@ -71,8 +65,6 @@ export const userLogIn = asyncErrorHandler(async (req, res) => {
 });
 
 export const userCurrent = asyncErrorHandler(async (req, res) => {
-	console.log("req hearders", req.headers.Authorization);
-	console.log("req hearders", req.headers.authorization);
-	const currentData = req.user;
+	const currentData = await userServices.current();
 	res.status(200).send(currentData);
 });
